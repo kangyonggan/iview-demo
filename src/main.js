@@ -3,7 +3,7 @@ import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
 import Vuex from 'vuex';
-import Util from './libs/util';
+import {setTitle, getToken} from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 
@@ -24,8 +24,18 @@ const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
-    Util.title(to.meta.title);
-    next();
+
+    const token = getToken();
+    if (!token && to.name !== 'login') {
+        // 未登录且不是前往登录界面，则跳转到登录界面
+        next({
+            name: 'login'
+        });
+    } else {
+        setTitle(to.meta.title);
+        next();
+
+    }
 });
 
 router.afterEach(() => {
