@@ -6,7 +6,8 @@ import {store} from '../main';
 export default {
     state: {
         user: {},
-        menus: []
+        menus: [],
+        tagNavList: []
     },
     getters: {
         menus: (state, getters, rootState) => {

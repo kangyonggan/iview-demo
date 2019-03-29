@@ -22,7 +22,7 @@
             <Content>
                 <Layout>
                     <div class="tag-nav-wrapper">
-                        tag-nav
+                        <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
                     </div>
                     <Content>
                         <keep-alive>
@@ -40,10 +40,11 @@
 <script>
     import sideMenu from './components/side-menu'
     import headerBar from './components/header-bar';
+    import tagsNav from './components/tags-nav';
     import user from './components/user';
 
     export default {
-        components: {sideMenu, headerBar, user},
+        components: {sideMenu, headerBar, tagsNav, user},
         data() {
             return {
                 isFullScreen: false,
@@ -56,13 +57,32 @@
             },
             menuList() {
                 return this.$store.getters.menus;
+            },
+            tagNavList () {
+                return this.$store.state.tagNavList;
             }
         },
         methods: {
+            // 点击菜单
             turnToPage(name) {
                 this.$router.push({
                     name: name
                 });
+            },
+            // 关闭Tab页
+            handleCloseTag (res, route) {
+                // this.setTagNavList(res)
+                // if (route) {
+                //     this.handleClick(route)
+                // }
+            },
+            // 激活Tab页
+            handleClick (item) {
+                this.$router.push({
+                    name: item.name,
+                    params: item.meta.params,
+                    query: item.meta.query
+                })
             }
         },
         watch: {},

@@ -2,7 +2,7 @@
     <Dropdown @on-click="handleClick" transer placement="right-start">
         <a class="drop-menu-a" type="text" :style="{textAlign: !hideTitle ? 'left' : ''}">
             <Icon :size="rootIconSize" :color="textColor" :type="parentItem.icon"/>
-            <span class="menu-title" v-if="!hideTitle">{{ showTitle(parentItem) }}</span>
+            <span class="menu-title" v-if="!hideTitle">{{ parentItem.disp }}</span>
             <Icon v-if="!hideTitle" :size="10" :color="textColor" type="chevron-right"
                   style="float: right;margin-top: 4px;"/>
         </a>
@@ -12,7 +12,7 @@
                                 :key="`drop-${child.name}`"></collapsed-menu>
                 <DropdownItem v-else :key="`drop-${child.name}`" :name="child.name">
                     <Icon :size="iconSize" :type="child.icon"/>
-                    <span class="menu-title">{{ showTitle(child) }}</span></DropdownItem>
+                    <span class="menu-title">{{ child.disp }}</span></DropdownItem>
             </template>
         </DropdownMenu>
     </Dropdown>
