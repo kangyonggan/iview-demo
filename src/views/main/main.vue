@@ -72,8 +72,107 @@
     };
 </script>
 
-<style scoped>
-    .ivu-layout-header {
-        padding: 0 !important;
+<style scoped lang="less">
+    .main {
+        .logo-con {
+            height: 60px;
+            padding: 10px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .header-con {
+            height: 60px;
+            background: #fff;
+            box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);
+            position: relative;
+            z-index: 1;
+
+            .lock-screen-btn-con {
+                position: absolute;
+                left: 65px;
+                top: -3px;
+                z-index: 999;
+                display: inline-block;
+                width: 30px;
+                text-align: center;
+                cursor: pointer;
+
+                .ivu-tooltip {
+                    height: 40px;
+                }
+
+                .ivu-tooltip-rel {
+                    height: 40px;
+                }
+
+                i {
+                    vertical-align: middle;
+                }
+            }
+
+            .header-bar {
+                position: absolute;
+                left: 10px;
+                top: 0;
+                right: 340px;
+                bottom: 0;
+                padding: 10px;
+                overflow: hidden;
+            }
+
+            .full-screen-btn-con {
+                position: absolute;
+                left: 100px;
+                top: -3px;
+                z-index: 999;
+                display: inline-block;
+                width: 30px;
+                height: 40px;
+                text-align: center;
+                cursor: pointer;
+
+                .ivu-tooltip {
+                    height: 40px;
+                }
+
+                .ivu-tooltip-rel {
+                    height: 40px;
+                }
+
+                i {
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .tag-nav-wrapper {
+            padding: 0;
+            height: 40px;
+            background: #F0F0F0;
+            overflow: hidden;
+        }
+    }
+
+    .user-dropdown-menu-con {
+        height: 46px;
+        line-height: 40px;
+        margin-right: 10px;
+
+        .ivu-dropdown {
+            height: 46px;
+
+            .ivu-dropdown-rel {
+                height: 46px;
+
+                a {
+                    display: inline-block;
+                }
+            }
+        }
+
+        .main-user-name {
+            width: 90px;
+        }
     }
 </style>
