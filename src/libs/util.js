@@ -1,35 +1,20 @@
-import axios from 'axios';
-import env from '../config/env';
 import Cookies from 'js-cookie'
+
+let util = {};
 
 /**
  * 令牌存放在Cookie中的key
  *
  * @type {string}
  */
-export const TOKEN_KEY = '_token'
-
-let util = {
-
-};
-
-const ajaxUrl = env === 'development' ?
-    'http://127.0.0.1:8888' :
-    env === 'production' ?
-    'https://www.url.com' :
-    'https://debug.url.com';
-
-util.ajax = axios.create({
-    baseURL: ajaxUrl,
-    timeout: 30000
-});
+util.tokenKey = 'x-auth-token';
 
 /**
  * 设置浏览器标题
  *
  * @param title
  */
-export const setTitle = (title) => {
+util.title = function (title) {
     title = title ? title + ' - 后台管理系统' : '后台管理系统';
     window.document.title = title;
 };
@@ -39,10 +24,45 @@ export const setTitle = (title) => {
  *
  * @returns {*}
  */
-export const getToken = () => {
-    const token = Cookies.get(TOKEN_KEY)
-    if (token) return token
-    else return false
-}
+util.token = function () {
+    const token = Cookies.get(this.tokenKey);
+    if (token) {
+        return token;
+    }
+    return false;
+};
+
+/**
+ * 从Cookie中移除令牌
+ */
+util.removeToken = function () {
+    Cookies.set(this.tokenKey, '', {expires: -1})
+};
+
+/**
+ * 向Cookie中添加令牌
+ */
+util.setToken = function (token) {
+    Cookies.set(this.tokenKey, token, {expires: 30})
+};
+
+/**
+ * 把请求？后面的封装成对象
+ *
+ * @param url
+ * @returns {{}}
+ */
+util.params = function (url) {
+    if (url.indexOf('?') === -1) {
+        return {};
+    }
+    const keyValueArr = url.split('?')[1].split('&');
+    let paramObj = {};
+    keyValueArr.forEach(item => {
+        const keyValue = item.split('=');
+        paramObj[keyValue[0]] = keyValue[1];
+    });
+    return paramObj;
+};
 
 export default util;

@@ -8,7 +8,7 @@ const routers = [{
     path: '/login',
     name: 'login',
     meta: {
-        title: '登录'
+        title: '用户登录'
     },
     component: (resolve) => require(['./views/login.vue'], resolve)
 }];
