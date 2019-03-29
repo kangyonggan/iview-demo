@@ -14,7 +14,7 @@ function error(respMsg) {
     this.$Notice.error({
         title: '错误',
         desc: respMsg,
-        duration: 2.5
+        duration: 3
     });
 }
 
@@ -36,7 +36,7 @@ function warning(respMsg) {
     this.$Notice.warning({
         title: '警告',
         desc: respMsg,
-        duration: 3
+        duration: 2
     });
 }
 

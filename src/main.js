@@ -1,11 +1,11 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import iView from 'iview';
 import VueRouter from 'vue-router';
 import Routers from './router';
-import Vuex from 'vuex';
 import Util from './libs/util';
 import './libs/common';
-import User from './store/user';
+import StoreApp from './store/app';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 
@@ -26,16 +26,28 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
 
-    const token = Util.token();
-    if (!token && to.name !== 'login') {
-        // 未登录且不是前往登录界面，则跳转到登录界面
+    let token = Util.token();
+    if (to.name === 'login') {
+        // 前往登录界面的放行
+        next();
+    } else if (!token) {
+        // 未登陆的前往登录界面
         next({
             name: 'login'
         });
     } else {
-        Util.title(to.meta.title);
-        next();
-
+        store.dispatch('ready').then(data => {
+            if (data.respCo === '0000') {
+                // 正常，放行
+                next();
+            } else {
+                // 异常，到登录界面
+                iView.Message.error('您尚未登录或登录已失效！');
+                next({
+                    name: 'login'
+                });
+            }
+        });
     }
 });
 
@@ -44,13 +56,12 @@ router.afterEach(() => {
     window.scrollTo(0, 0);
 });
 
-
-const store = new Vuex.Store({
+export const store = new Vuex.Store({
     state: {},
     getters: {},
     mutations: {},
     actions: {},
-    modules: {User}
+    modules: {StoreApp}
 });
 
 

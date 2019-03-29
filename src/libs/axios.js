@@ -54,8 +54,7 @@ class HttpRequest {
             }
         }, (error) => {
             // 对响应错误做点什么
-            error = '9996';
-            return Promise.reject(error);
+            return Promise.reject(error.toLocaleString());
         });
     }
 

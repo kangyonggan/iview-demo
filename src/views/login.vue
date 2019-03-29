@@ -54,8 +54,7 @@
 
         methods: {
             ...mapActions([
-                'login',
-                'getUserInfo'
+                'login'
             ]),
             submit() {
                 this.$refs.loginForm.validate((valid) => {
@@ -64,9 +63,8 @@
                         this.login(this.user).then(data => {
                             this.loading = false;
                             if (data.respCo === '0000') {
-                                this.success('登录成功');
                                 this.$router.push({
-                                    name: '/'
+                                    name: 'index'
                                 })
                             } else {
                                 this.error(data.respMsg);
