@@ -36,13 +36,13 @@
         </Layout>
     </Layout>
 </template>
+
 <script>
     import sideMenu from './components/side-menu'
     import headerBar from './components/header-bar';
     import user from './components/user';
 
     export default {
-        name: 'Main',
         components: {sideMenu, headerBar, user},
         data() {
             return {
@@ -55,8 +55,7 @@
                 return require('../../assets/images/logo.jpg');
             },
             menuList() {
-                console.log(this.$store.getters.menuList);
-                return this.$store.getters.menuList;
+                return this.$store.getters.menus;
             }
         },
         methods: {
@@ -72,3 +71,9 @@
         }
     };
 </script>
+
+<style scoped>
+    .ivu-layout-header {
+        padding: 0 !important;
+    }
+</style>

@@ -8,7 +8,7 @@
                                 :parent-item="item"></side-menu-item>
                 <menu-item v-else :name="`${item.name}`" :key="`menu-${item.name}`">
                     <Icon :type="item.icon"/>
-                    <span>{{ showTitle(item) }}</span></menu-item>
+                    <span>{{ item.disp }}</span></menu-item>
             </template>
         </Menu>
         <div class="menu-collapsed" v-show="collapsed" :list="menuList">

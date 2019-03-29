@@ -85,11 +85,12 @@ util.getMenuByRouter = function (list, menus) {
 
     for (let i in menus) {
         let menu = menus[i];
-        let route = menuInRouters(list, menu.code);
+        let route = menuInRouters(list, menu.menuCode);
         if (route) {
             let obj = {
                 icon: menu.icon || '',
-                name: menu.code
+                disp: menu.menuName,
+                name: menu.menuCode
             };
             if (hasChild(menu)) {
                 obj.children = util.getMenuByRouter(list, menu.children);
@@ -102,13 +103,13 @@ util.getMenuByRouter = function (list, menus) {
 };
 
 
-function menuInRouters(list, code) {
+function menuInRouters(list, menuCode) {
     for (let i in list) {
         let route = list[i];
-        if (route.name === code) {
+        if (route.name === menuCode) {
             return route;
         } else if (hasChild(route)) {
-            let rt = menuInRouters(route.children, code);
+            let rt = menuInRouters(route.children, menuCode);
             if (rt) {
                 return rt;
             }

@@ -2,7 +2,6 @@ import Http from '../libs/http';
 import Util from '../libs/util';
 import Routers from '../router';
 import {store} from '../main';
-import iView from 'iview';
 
 export default {
     state: {
@@ -10,14 +9,14 @@ export default {
         menus: []
     },
     getters: {
-        menuList: (state, getters, rootState) => {
-            return Util.getMenuByRouter(Routers, state.menus);
+        menus: (state, getters, rootState) => {
+            return state.menus;
         }
     },
     mutations: {
         setLoginData(state, data) {
             state.user = data.user;
-            state.menus = data.menus;
+            state.menus = Util.getMenuByRouter(Routers, data.menus);
         }
     },
     actions: {
@@ -35,7 +34,7 @@ export default {
         },
         // 检测必备的数据
         ready({commit}) {
-            if (!this.state.StoreApp.user.email) {
+            if (this.state.StoreApp.menus.length === 0) {
                 return new Promise((resolve) => {
                     Http.get('login/data').then(data => {
                         commit('setLoginData', data.data);
