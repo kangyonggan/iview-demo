@@ -50,7 +50,7 @@ class HttpRequest {
                 return data;
             } else {
                 // 各种失败
-                return Promise.reject(data.respCo);
+                return Promise.reject(data.respMsg);
             }
         }, (error) => {
             // 对响应错误做点什么

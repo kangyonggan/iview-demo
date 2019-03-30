@@ -102,7 +102,6 @@ util.getMenuByRouter = function (list, menus) {
     return res;
 };
 
-
 function menuInRouters(list, menuCode) {
     for (let i in list) {
         let route = list[i];
@@ -122,5 +121,87 @@ function menuInRouters(list, menuCode) {
 function hasChild(item) {
     return item.children && item.children.length !== 0;
 }
+
+/**
+ * @param {*} list 现有标签导航列表
+ * @param {*} newRoute 新添加的路由原信息对象
+ * @param {*} disp 新添加的路由的显示名称
+ * @description 如果该newRoute已经存在则更新(考虑到带参数路由)
+ */
+util.getNewTagList = function (list, newRoute, disp) {
+    const {name, path, meta} = newRoute;
+    let newList = [...list];
+    let index = newList.findIndex(item => item.name === name);
+    if (index >= 0) {
+        newList[index] = {name, path, meta, disp};
+    } else {
+        newList.push({name, path, meta, disp});
+    }
+    return newList;
+};
+
+/**
+ * @param {Array} routeMetched 当前路由metched
+ * @returns {Array}
+ */
+util.getBreadCrumbList = function (routeMetched) {
+    let res = routeMetched.map(item => {
+        let obj = {
+            icon: (item.meta && item.meta.icon) || '',
+            name: item.name,
+            meta: item.meta
+        };
+        return obj;
+    });
+    res = res.filter(item => {
+        return !item.meta.hideInMenu;
+    });
+
+    return [{
+        name: 'home',
+        to: '/home',
+        icon: 'ios-home'
+    }, ...res];
+};
+
+/**
+ * @description 本地存储和获取标签导航列表
+ */
+util.setTagNavListInLocalstorage = function (list) {
+    localStorage.tagNaveList = JSON.stringify(list);
+};
+
+/**
+ * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
+ */
+util.getTagNavListFromLocalstorage = function () {
+    const list = localStorage.tagNaveList;
+    return list ? JSON.parse(list) : [];
+};
+
+/**
+ * 获取route的disp
+ *
+ * @param menus
+ * @param route
+ */
+util.getRouteDisp = function (menus, route) {
+    if (route.name === 'home') {
+        return '首页';
+    }
+    for (let i in menus) {
+        let menu = menus[i];
+        if (menu.name === route.name) {
+            return menu.disp;
+        } else if (hasChild(menu)) {
+            let disp = util.getRouteDisp(menu.children, route);
+            if (disp) {
+                return disp;
+            }
+        }
+    }
+
+    return route.name;
+};
 
 export default util;

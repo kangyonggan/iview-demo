@@ -42,6 +42,8 @@
     import headerBar from './components/header-bar';
     import tagsNav from './components/tags-nav';
     import user from './components/user';
+    import { mapMutations } from 'vuex'
+    import Util from '../../libs/util';
 
     export default {
         components: {sideMenu, headerBar, tagsNav, user},
@@ -59,10 +61,15 @@
                 return this.$store.getters.menus;
             },
             tagNavList () {
-                return this.$store.state.tagNavList;
+                return this.$store.state.StoreApp.tagNavList;
             }
         },
         methods: {
+            ...mapMutations([
+                'setBreadCrumb',
+                'setTagNavList',
+                'addTag'
+            ]),
             // 点击菜单
             turnToPage(name) {
                 this.$router.push({
@@ -71,10 +78,10 @@
             },
             // 关闭Tab页
             handleCloseTag (res, route) {
-                // this.setTagNavList(res)
-                // if (route) {
-                //     this.handleClick(route)
-                // }
+                this.setTagNavList(res);
+                if (route) {
+                    this.handleClick(route);
+                }
             },
             // 激活Tab页
             handleClick (item) {
@@ -85,7 +92,15 @@
                 })
             }
         },
-        watch: {},
+        watch: {
+            '$route' (newRoute) {
+                newRoute.meta.params = this.$route.params;
+                newRoute.meta.query = this.$route.query;
+                const disp = Util.getRouteDisp(this.menuList, newRoute);
+                this.setBreadCrumb(newRoute.matched);
+                this.setTagNavList(Util.getNewTagList(this.tagNavList, newRoute, disp));
+            }
+        },
         mounted() {
 
         }

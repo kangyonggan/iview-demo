@@ -7,7 +7,12 @@ export default {
     state: {
         user: {},
         menus: [],
-        tagNavList: []
+        breadCrumbList: [],
+        tagNavList: [{
+            name: 'home',
+            disp: '首页',
+            meta: {}
+        }]
     },
     getters: {
         menus: (state, getters, rootState) => {
@@ -18,6 +23,17 @@ export default {
         setLoginData(state, data) {
             state.user = data.user;
             state.menus = Util.getMenuByRouter(Routers, data.menus);
+        },
+        setBreadCrumb(state, routeMetched) {
+            state.breadCrumbList = Util.getBreadCrumbList(routeMetched);
+        },
+        setTagNavList(state, list) {
+            if (list) {
+                state.tagNavList = [...list];
+                Util.setTagNavListInLocalstorage([...list]);
+            } else {
+                state.tagNavList = Util.getTagNavListFromLocalstorage();
+            }
         }
     },
     actions: {
