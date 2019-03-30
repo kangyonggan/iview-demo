@@ -15,6 +15,7 @@
         </Sider>
         <Layout>
             <Header class="header-con">
+                <lock-screen></lock-screen>
                 <fullscreen v-model="isFullScreen"></fullscreen>
                 <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
                     <user :avatar="avatar"/>
@@ -42,13 +43,14 @@
     import sideMenu from './components/side-menu'
     import headerBar from './components/header-bar';
     import tagsNav from './components/tags-nav';
+    import lockScreen from './components/lockscreen';
     import fullscreen from './components/fullscreen'
     import user from './components/user';
     import { mapMutations } from 'vuex'
     import Util from '../../libs/util';
 
     export default {
-        components: {sideMenu, headerBar, tagsNav, fullscreen, user},
+        components: {sideMenu, headerBar, tagsNav, lockScreen, fullscreen, user},
         data() {
             return {
                 isFullScreen: false,
@@ -108,12 +110,14 @@
             }
         },
         mounted() {
-
+            // 初始化设置面包屑导航和标签导航
+            this.setTagNavList();
+            this.setBreadCrumb(this.$route.matched);
         }
     };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .main {
         .logo-con {
             height: 60px;
@@ -165,7 +169,7 @@
             .full-screen-btn-con {
                 position: absolute;
                 left: 100px;
-                top: 0;
+                top: -3px;
                 z-index: 999;
                 display: inline-block;
                 width: 30px;

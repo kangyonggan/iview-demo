@@ -204,4 +204,44 @@ util.getRouteDisp = function (menus, route) {
     return route.name;
 };
 
+/**
+ * 存储锁屏前的界面
+ *
+ * @param pageName
+ */
+util.setLockPage = function (pageName) {
+    Cookies.set('last_page_name', pageName);
+    Cookies.set('locking', '1');
+};
+
+/**
+ * 获取锁屏前的界面
+ *
+ * @returns {*}
+ */
+util.getLockPage = function () {
+    let lastPageName = Cookies.get('last_page_name');
+    if (lastPageName) {
+        return lastPageName;
+    }
+
+    return 'home';
+};
+
+/**
+ * 解锁
+ */
+util.unlock = function () {
+    Cookies.set('locking', '0');
+};
+
+/**
+ * 获取锁屏状态
+ *
+ * @returns {number}
+ */
+util.getLockStatus = function () {
+    return parseInt(Cookies.get('locking'));
+};
+
 export default util;

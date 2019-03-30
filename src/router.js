@@ -1,4 +1,3 @@
-
 function main(resolve) {
     return require(['./views/main/main.vue'], resolve);
 }
@@ -22,6 +21,10 @@ const routers = [{
         title: '用户登录'
     },
     component: (resolve) => require(['./views/login.vue'], resolve)
+}, {
+    path: '/locking',
+    name: 'locking',
+    component: (resolve) => require(['./views/main/components/locking.vue'], resolve)
 }, {
     path: '/system',
     name: 'SYSTEM',

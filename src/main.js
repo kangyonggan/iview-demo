@@ -27,7 +27,21 @@ router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
 
     let token = Util.token();
-    if (to.name === 'login') {
+    let isLocked = Util.getLockStatus();
+
+    console.log(isLocked);
+    console.log(to.name);
+
+    if (isLocked && to.name !== 'locking') {
+        // 当前是锁定状态并且用户要跳转到的页面不是解锁页面
+        next({
+            replace: true, // 重定向到解锁页面
+            name: 'locking'
+        })
+    } else if (!isLocked && to.name === 'locking') {
+        // 当前未锁定且用户要跳转到的页面是解锁页面
+        next(false) // 不做跳转
+    } else if (to.name === 'login') {
         // 前往登录界面的放行
         next();
     } else if (!token) {
