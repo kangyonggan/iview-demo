@@ -15,6 +15,7 @@
         </Sider>
         <Layout>
             <Header class="header-con">
+                <fullscreen v-model="isFullScreen"></fullscreen>
                 <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
                     <user :avatar="avatar"/>
                 </header-bar>
@@ -41,12 +42,13 @@
     import sideMenu from './components/side-menu'
     import headerBar from './components/header-bar';
     import tagsNav from './components/tags-nav';
+    import fullscreen from './components/fullscreen'
     import user from './components/user';
     import { mapMutations } from 'vuex'
     import Util from '../../libs/util';
 
     export default {
-        components: {sideMenu, headerBar, tagsNav, user},
+        components: {sideMenu, headerBar, tagsNav, fullscreen, user},
         data() {
             return {
                 isFullScreen: false,
@@ -163,7 +165,7 @@
             .full-screen-btn-con {
                 position: absolute;
                 left: 100px;
-                top: -3px;
+                top: 0;
                 z-index: 999;
                 display: inline-block;
                 width: 30px;
