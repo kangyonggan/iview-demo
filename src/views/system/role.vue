@@ -1,7 +1,5 @@
 <template>
-    <div class="bg-white">
-        role
-    </div>
+    role
 </template>
 
 <script>
