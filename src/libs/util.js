@@ -47,22 +47,35 @@ util.setToken = function (token) {
 };
 
 /**
- * 把请求？后面的封装成对象
+ * 拼接请求参数
  *
- * @param url
- * @returns {{}}
+ * @param data
+ * @returns {*}
  */
-util.params = function (url) {
-    if (url.indexOf('?') === -1) {
-        return {};
+util.params = function (data) {
+    if (data.constructor !== Object) {
+        return data;
     }
-    const keyValueArr = url.split('?')[1].split('&');
-    let paramObj = {};
-    keyValueArr.forEach(item => {
-        const keyValue = item.split('=');
-        paramObj[keyValue[0]] = keyValue[1];
-    });
-    return paramObj;
+
+    let arr = [];
+    for (let key in data) {
+        let obj = data[key];
+        if (obj === undefined || obj === null) {
+            continue;
+        }
+        if (obj.constructor === Array) {
+            let a = [];
+            for (let i in obj) {
+                a.push(encodeURI(params(obj[i])));
+            }
+            arr.push(key + '=' + a.join(','));
+        } else if (obj.constructor === Object) {
+            arr.push(key + '=' + params(obj));
+        } else {
+            arr.push(key + '=' + encodeURI(obj));
+        }
+    }
+    return arr;
 };
 
 /**

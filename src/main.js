@@ -8,7 +8,7 @@ import './libs/common';
 import StoreApp from './store/app';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
-
+import './components/index';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);

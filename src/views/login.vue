@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="login-con">
-            <Card icon="log-in" title="用户登录1">
+            <Card icon="log-in" title="用户登录">
                 <div class="form-con">
                     <Form ref="loginForm" :model="user" :rules="rules">
                         <FormItem prop="email">

@@ -1,0 +1,12 @@
+/**
+ * 自定义组件
+ */
+
+// 输入框
+import './app-input';
+
+// 日期选择框
+import './app-date-picker';
+
+// 表格
+import './app-table';

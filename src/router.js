@@ -39,17 +39,17 @@ const routers = [{
         {
             path: 'user',
             name: 'SYSTEM_USER',
-            component: (resolve) => require(['./views/system/user.vue'], resolve)
+            component: (resolve) => require(['./views/system/user/index.vue'], resolve)
         },
         {
             path: 'role',
             name: 'SYSTEM_ROLE',
-            component: (resolve) => require(['./views/system/role.vue'], resolve)
+            component: (resolve) => require(['./views/system/role/index.vue'], resolve)
         },
         {
             path: 'menu',
             name: 'SYSTEM_MENU',
-            component: (resolve) => require(['./views/system/menu.vue'], resolve)
+            component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
         }
     ]
 }];
