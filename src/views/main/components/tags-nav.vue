@@ -30,7 +30,7 @@
                         @click.native="handleClick(item)"
                         :closable="item.name==='home'?false:true"
                         :color="item.name === value.name ? 'blue' : 'default'"
-                    >{{ item.disp }}
+                    >{{ item.meta.title }}
                     </Tag>
                 </transition-group>
             </div>

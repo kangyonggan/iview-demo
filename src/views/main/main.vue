@@ -5,10 +5,10 @@
                        :menu-list="menuList">
                 <div class="logo-con">
                     <h1 v-show="!collapsed">
-                        <a href="/" style="color: #f5f5f5">后台管理系统</a>
+                        <a href="javascript:" style="color: #f5f5f5">后台管理系统</a>
                     </h1>
                     <h1 v-show="collapsed">
-                        <a href="/" style="color: #f5f5f5">后管</a>
+                        <a href="javascript:" style="color: #f5f5f5">后管</a>
                     </h1>
                 </div>
             </side-menu>
@@ -104,9 +104,10 @@
             '$route' (newRoute) {
                 newRoute.meta.params = this.$route.params;
                 newRoute.meta.query = this.$route.query;
-                const disp = Util.getRouteDisp(this.menuList, newRoute);
+                const title = Util.getRouteTitle(this.menuList, newRoute);
+                Util.title(title);
                 this.setBreadCrumb(newRoute.matched);
-                this.setTagNavList(Util.getNewTagList(this.tagNavList, newRoute, disp));
+                this.setTagNavList(Util.getNewTagList(this.tagNavList, newRoute, title));
             }
         },
         mounted() {

@@ -11,6 +11,9 @@ const routers = [{
         {
             path: 'home',
             name: 'home',
+            meta: {
+                title: '首页'
+            },
             component: (resolve) => require(['./views/home/home.vue'], resolve)
         }
     ]
@@ -24,6 +27,9 @@ const routers = [{
 }, {
     path: '/locking',
     name: 'locking',
+    meta: {
+        title: '锁屏'
+    },
     component: (resolve) => require(['./views/main/components/locking.vue'], resolve)
 }, {
     path: '/system',

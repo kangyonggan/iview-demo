@@ -10,8 +10,9 @@ export default {
         breadCrumbList: [],
         tagNavList: [{
             name: 'home',
-            disp: '首页',
-            meta: {}
+            meta: {
+                title: '首页'
+            }
         }]
     },
     getters: {

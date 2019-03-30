@@ -89,7 +89,9 @@ util.getMenuByRouter = function (list, menus) {
         if (route) {
             let obj = {
                 icon: menu.icon || '',
-                disp: menu.menuName,
+                meta: {
+                    title: menu.menuName
+                },
                 name: menu.menuCode
             };
             if (hasChild(menu)) {
@@ -125,17 +127,18 @@ function hasChild(item) {
 /**
  * @param {*} list 现有标签导航列表
  * @param {*} newRoute 新添加的路由原信息对象
- * @param {*} disp 新添加的路由的显示名称
+ * @param {*} title 新添加的路由的显示名称
  * @description 如果该newRoute已经存在则更新(考虑到带参数路由)
  */
-util.getNewTagList = function (list, newRoute, disp) {
+util.getNewTagList = function (list, newRoute, title) {
     const {name, path, meta} = newRoute;
+    meta.title = title;
     let newList = [...list];
     let index = newList.findIndex(item => item.name === name);
     if (index >= 0) {
-        newList[index] = {name, path, meta, disp};
+        newList[index] = {name, path, meta};
     } else {
-        newList.push({name, path, meta, disp});
+        newList.push({name, path, meta});
     }
     return newList;
 };
@@ -180,28 +183,25 @@ util.getTagNavListFromLocalstorage = function () {
 };
 
 /**
- * 获取route的disp
+ * 获取route的title
  *
  * @param menus
  * @param route
  */
-util.getRouteDisp = function (menus, route) {
-    if (route.name === 'home') {
-        return '首页';
-    }
+util.getRouteTitle = function (menus, route) {
     for (let i in menus) {
         let menu = menus[i];
         if (menu.name === route.name) {
-            return menu.disp;
+            return menu.meta.title;
         } else if (hasChild(menu)) {
-            let disp = util.getRouteDisp(menu.children, route);
-            if (disp) {
-                return disp;
+            let title = util.getRouteTitle(menu.children, route);
+            if (title) {
+                return title;
             }
         }
     }
 
-    return route.name;
+    return route.meta.title;
 };
 
 /**

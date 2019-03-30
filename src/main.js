@@ -26,11 +26,13 @@ const router = new VueRouter(RouterConfig);
 router.beforeEach((to, from, next) => {
     iView.LoadingBar.start();
 
+    // 设置title
+    if (to.meta.title) {
+        Util.title(to.meta.title);
+    }
+
     let token = Util.token();
     let isLocked = Util.getLockStatus();
-
-    console.log(isLocked);
-    console.log(to.name);
 
     if (isLocked && to.name !== 'locking') {
         // 当前是锁定状态并且用户要跳转到的页面不是解锁页面
