@@ -15,7 +15,7 @@
         </Sider>
         <Layout>
             <Header class="header-con">
-                <header-bar :collapsed="collapsed">
+                <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
                     <user :avatar="avatar"/>
                 </header-bar>
             </Header>
@@ -75,6 +75,10 @@
                 this.$router.push({
                     name: name
                 });
+            },
+            // 展开/收缩菜单
+            handleCollapsedChange (state) {
+                this.collapsed = state
             },
             // 关闭Tab页
             handleCloseTag (res, route) {

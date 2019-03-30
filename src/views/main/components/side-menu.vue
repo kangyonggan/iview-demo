@@ -107,7 +107,7 @@
     };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .side-menu-wrapper {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
