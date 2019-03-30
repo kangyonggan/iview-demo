@@ -10,3 +10,6 @@ import './app-date-picker';
 
 // 表格
 import './app-table';
+
+// 模态框
+import './app-modal';

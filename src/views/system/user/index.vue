@@ -8,7 +8,7 @@
             <Row>
                 <Button type="info" icon="ios-search" @click="$refs.table.refresh()">查询</Button>
                 <Button type="warning" icon="ios-refresh-empty" @click="$refs.queryForm.resetFields()">清除</Button>
-                <Button type="primary" icon="plus">新增</Button>
+                <Button type="primary" icon="plus" @click="create">新增</Button>
             </Row>
         </Form>
 
@@ -18,8 +18,10 @@
 </template>
 
 <script>
+    import FormModal from './form-modal.vue';
+
     export default {
-        components: {},
+        components: {FormModal},
         data() {
             return {
                 /**
@@ -66,6 +68,12 @@
                             return this.datetime(h, params.row.updatedTime);
                         }
                     }]
+            }
+        },
+        methods: {
+            // 新增
+            create: function () {
+
             }
         }
     }
