@@ -6,8 +6,8 @@
             <AppDatePicker :model="user" prop="startDate" placeholder="注册开始日期"/>
             <AppDatePicker :model="user" prop="endDate" placeholder="注册结束日期"/>
             <Row>
-                <Button type="info" icon="ios-search">查询</Button>
-                <Button type="warning" icon="ios-refresh-empty">清除</Button>
+                <Button type="info" icon="ios-search" @click="$refs.table.refresh()">查询</Button>
+                <Button type="warning" icon="ios-refresh-empty" @click="$refs.queryForm.resetFields()">清除</Button>
                 <Button type="primary" icon="plus">新增</Button>
             </Row>
         </Form>

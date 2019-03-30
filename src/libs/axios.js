@@ -164,7 +164,7 @@ class HttpRequest {
 
     // GET请求实例
     get(url, data) {
-        if (data && data.length) {
+        if (data) {
             url += '?' + Util.params(data).join('&');
         }
         let options = {
