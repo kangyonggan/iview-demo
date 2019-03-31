@@ -9,6 +9,8 @@
                 <Button type="info" icon="ios-search" @click="$refs.table.refresh()">查询</Button>
                 <Button type="warning" icon="ios-refresh-empty" @click="$refs.queryForm.resetFields()">清除</Button>
                 <Button type="primary" icon="plus" @click="$refs.formModal.show()">新增</Button>
+                <Button type="primary" icon="ios-eye-outline" @click="editPassword">修改密码</Button>
+                <Button type="error" icon="ios-trash-outline" @click="remove">物理删除</Button>
             </Row>
         </Form>
 
@@ -17,14 +19,19 @@
 
         <!--新增/编辑用户的界面-->
         <FormModal ref="formModal" @success="$refs.table.refresh()"/>
+
+        <!--修改密码的界面-->
+        <PasswordModal ref="passwordModal"/>
     </div>
 </template>
 
 <script>
     import FormModal from './form-modal.vue';
+    import PasswordModal from './password-modal.vue';
+    import Http from '../../../libs/http';
 
     export default {
-        components: {FormModal},
+        components: {FormModal, PasswordModal},
         data() {
             return {
                 /**
@@ -79,6 +86,43 @@
              */
             dblclick: function (row) {
                 this.$refs.formModal.show({userId: row.userId, email: row.email});
+            },
+            /**
+             * 修改密码
+             */
+            editPassword: function () {
+                const row = this.$refs.table.getSelectionNow();
+                if (!row.userId) {
+                    this.warning('请选择一行');
+                } else {
+                    this.$refs.passwordModal.show({userId: row.userId, email: row.email});
+                }
+            },
+            /**
+             * 物理删除
+             */
+            remove: function () {
+                const row = this.$refs.table.getSelectionNow();
+                if (!row.userId) {
+                    this.warning('请选择一行');
+                } else {
+                    let that = this;
+                    that.$Modal.confirm({
+                        title: '物理删除',
+                        content: '确认删除所选记录？',
+                        loading: true,
+                        closable: true,
+                        onOk: function () {
+                            Http.del('system/user/' + row.userId).then(data => {
+                                that.success(data.respMsg);
+                                that.$refs.table.refresh();
+                            }).catch(respMsg => {
+                                that.error(respMsg);
+                            });
+                            that.$Modal.remove();
+                        }
+                    })
+                }
             }
         }
     }

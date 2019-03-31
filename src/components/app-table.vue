@@ -1,8 +1,8 @@
 <template>
     <div style="margin-top: 10px; margin-bottom: 20px;">
         <!--表格-->
-        <Table :loading="loading" border :columns="columns" :data="pageInfo.list" @on-selection-change="selectionChange"
-               @on-sort-change="sortChange" @on-row-dblclick="dblclick"/>
+        <Table :loading="loading" border highlight-row :columns="columns" :data="pageInfo.list" @on-selection-change="selectionChange"
+               @on-sort-change="sortChange" @on-row-dblclick="dblclick" @on-current-change="highlight"/>
 
         <!--分页-->
         <Page v-if="pagination" v-show="pageInfo.pages > 0" :current="params.pageNum" :total="pageInfo.total" show-total
@@ -60,7 +60,11 @@
                 /**
                  * 已选择的行
                  */
-                selection: []
+                selection: [],
+                /**
+                 * 当前选中的行
+                 */
+                currentRow: {}
             }
         },
         mounted: function () {
@@ -80,6 +84,12 @@
                 this.selection = selection;
             },
             /**
+             * 单选
+             */
+            highlight: function (currentRow, oldCurrentRow) {
+                this.currentRow = currentRow;
+            },
+            /**
              * 双击某一行时触发
              */
             dblclick: function (selection) {
@@ -92,12 +102,16 @@
                 this.loading = true;
                 let params = this.form ? Object.assign(this.params, this.form.model || {}) : this.params;
                 Http.get(this.url, params).then(data => {
+                    // 清除状态和数据
+                    this.selection = [];
+                    this.currentRow = {};
+
                     this.loading = false;
                     this.pageInfo = data.data.pageInfo;
                 }).catch(respMsg => {
                     this.loading = false;
                     this.error(respMsg);
-                })
+                });
             },
             /**
              * 修改分页大小
@@ -143,6 +157,12 @@
              */
             getSelection: function () {
                 return this.selection;
+            },
+            /**
+             * 获取当前选中的行
+             */
+            getSelectionNow: function () {
+                return this.currentRow;
             },
             /**
              * 获取选中的行(带有筛选条件)
