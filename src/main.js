@@ -9,6 +9,11 @@ import StoreApp from './store/app';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 import './components/index';
+import env from './config/env'
+
+if (env === 'mock') {
+    require('./mock');
+}
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
