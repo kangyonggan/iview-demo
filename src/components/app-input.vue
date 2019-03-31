@@ -1,6 +1,6 @@
 <template>
-    <FormItem :prop="prop">
-        <Input v-model="model[prop]" :placeholder="placeholder" :clearable="clearable" />
+    <FormItem v-if="v_if" :prop="prop" :label="label">
+        <Input :type="type" v-model="model[prop]" :placeholder="placeholder" :clearable="clearable" :readonly="readonly"/>
     </FormItem>
 </template>
 
@@ -17,12 +17,26 @@
                 required: true,
                 type: String
             },
+            v_if: {
+                type: Boolean,
+                default: true
+            },
+            type: {
+                type: String
+            },
+            label: {
+                type: String
+            },
             placeholder: {
                 type: String
             },
             clearable: {
                 type: Boolean,
                 default: true
+            },
+            readonly: {
+                type: Boolean,
+                default: false
             }
         }
     };

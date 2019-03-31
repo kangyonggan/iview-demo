@@ -72,14 +72,11 @@ function status(h, params, url, table) {
                             loading: true,
                             closable: true,
                             onOk: function () {
-                                Http.get(url).then(data => {
-                                    if (data.respCo === '0000') {
-                                        that.success(data.respMsg);
-                                        if (table) {
-                                            table.refresh();
-                                        }
-                                    } else {
-                                        that.error(data.respMsg);
+                                const data = {isDeleted: 1 * !row.isDeleted};
+                                Http.put(url, data).then(data => {
+                                    that.success(data.respMsg);
+                                    if (table) {
+                                        table.refresh();
                                     }
                                 }).catch(respMsg => {
                                     that.error(respMsg);
@@ -107,14 +104,11 @@ function status(h, params, url, table) {
                         loading: true,
                         closable: true,
                         onOk: function () {
-                            Http.get(url).then(data => {
-                                if (data.respCo === '0000') {
-                                    that.success(data.respMsg);
-                                    if (table) {
-                                        table.refresh();
-                                    }
-                                } else {
-                                    that.error(data.respMsg);
+                            const data = {isDeleted: 1 * !row.isDeleted};
+                            Http.put(url, data).then(data => {
+                                that.success(data.respMsg);
+                                if (table) {
+                                    table.refresh();
                                 }
                             }).catch(respMsg => {
                                 that.error(respMsg);

@@ -8,12 +8,15 @@
             <Row>
                 <Button type="info" icon="ios-search" @click="$refs.table.refresh()">查询</Button>
                 <Button type="warning" icon="ios-refresh-empty" @click="$refs.queryForm.resetFields()">清除</Button>
-                <Button type="primary" icon="plus" @click="create">新增</Button>
+                <Button type="primary" icon="plus" @click="$refs.formModal.show()">新增</Button>
             </Row>
         </Form>
 
         <!--表格-->
-        <AppTable ref="table" url="system/user" :columns="columns" :form="$refs.queryForm"/>
+        <AppTable ref="table" url="system/user" :columns="columns" :form="$refs.queryForm" @dblclick="dblclick"/>
+
+        <!--新增/编辑用户的界面-->
+        <FormModal ref="formModal" @success="$refs.table.refresh()"/>
     </div>
 </template>
 
@@ -47,9 +50,7 @@
                         key: 'isDeleted',
                         sortable: true,
                         render: (h, params) => {
-                            return this.status(h, params, 'system/user/' +
-                                params.row.userId + '/delete/' + 1 * !params.row.isDeleted,
-                                this.$refs.table)
+                            return this.status(h, params, 'system/user/' + params.row.userId, this.$refs.table)
                         }
                     },
                     {
@@ -71,9 +72,8 @@
             }
         },
         methods: {
-            // 新增
-            create: function () {
-
+            dblclick: function (row) {
+                this.$refs.formModal.show({userId: row.userId, email: row.email});
             }
         }
     }

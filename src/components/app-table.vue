@@ -2,7 +2,7 @@
     <div style="margin-top: 10px; margin-bottom: 20px;">
         <!--表格-->
         <Table :loading="loading" border :columns="columns" :data="pageInfo.list" @on-selection-change="selectionChange"
-               @on-sort-change="sortChange"/>
+               @on-sort-change="sortChange" @on-row-dblclick="dblclick"/>
 
         <!--分页-->
         <Page v-if="pagination" v-show="pageInfo.pages > 0" :current="params.pageNum" :total="pageInfo.total" show-total
@@ -80,6 +80,12 @@
                 this.selection = selection;
             },
             /**
+             * 双击某一行时触发
+             */
+            dblclick: function (selection) {
+                this.$emit('dblclick', selection);
+            },
+            /**
              * 刷新
              */
             refresh: function () {
@@ -87,11 +93,7 @@
                 let params = this.form ? Object.assign(this.params, this.form.model || {}) : this.params;
                 Http.get(this.url, params).then(data => {
                     this.loading = false;
-                    if (data.respCo === '0000') {
-                        this.pageInfo = data.data.pageInfo;
-                    } else {
-                        this.error(data.respMsg);
-                    }
+                    this.pageInfo = data.data.pageInfo;
                 }).catch(respMsg => {
                     this.loading = false;
                     this.error(respMsg);

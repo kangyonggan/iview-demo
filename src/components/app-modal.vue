@@ -17,7 +17,7 @@
     import Vue from 'vue';
     import Http from '../libs/http';
 
-    const AppModel = {
+    const AppModal = {
         props: {
             title: {
                 required: true,
@@ -76,15 +76,9 @@
                     if (valid) {
                         this.loading();
                         Http.request(this.method, this.action, this.model).then(data => {
-                            if (data.respCo === '0000') {
-                                this.success(data.respCo);
-                                this.hide();
-                                this.$emit('success', data);
-                            } else {
-                                this.stop();
-                                this.$emit('failure', data.respMsg);
-                                this.error(data.respMsg);
-                            }
+                            this.success(data.respMsg);
+                            this.hide();
+                            this.$emit('success', data);
                         }).catch(respMsg => {
                             this.stop();
                             this.$emit('failure', respMsg);
@@ -99,7 +93,7 @@
         }
     };
 
-    export default AppModel;
+    export default AppModal;
 
-    Vue.component('AppModel', AppModel);
+    Vue.component('AppModal', AppModal);
 </script>

@@ -1,13 +1,10 @@
 <template>
     <!--新增/编辑用户-->
-    <AppModal ref="modal" action="system/user" :method="user.id ? 'put' : 'post'"
+    <AppModal ref="modal" :action="'system/user/' + (user.userId ? user.userId : '')" :method="user.userId ? 'put' : 'post'"
               :title="user.userId ? '编辑用户' : '新增用户'" :model="user" :rules="rules" @success="handleSuccess">
-        <FormItem label="电子邮箱" prop="email">
-            <Input v-model="user.email" :readonly="!!user.userId" placeholder="请输入电子邮箱" :clearable="!user.userId"/>
-        </FormItem>
-        <FormItem label="密码" prop="password" v-if="!user.userId">
-            <Input type="password" v-model="user.password" placeholder="请输入密码" clearable/>
-        </FormItem>
+        <AppInput :v_if="!!user.userId" :model="user" prop="userId" label="用户ID" readonly :clearable="false"/>
+        <AppInput :model="user" prop="email" label="电子邮箱" placeholder="请输入电子邮箱" :clearable="!user.userId"/>
+        <AppInput :v_if="!user.userId" type="password" :model="user" prop="password" label="密码" placeholder="请输入密码" clearable/>
     </AppModal>
 </template>
 
@@ -27,7 +24,7 @@
                  */
                 user: {},
                 /**
-                 * 老的用户名
+                 * 老的电子邮箱
                  */
                 oldEmail: '',
                 /**
@@ -37,7 +34,8 @@
                     email: [
                         {required: true, message: '电子邮箱为必填项', trigger: 'blur'},
                         {max: 64, message: '电子邮箱最多为64位', trigger: 'blur'},
-                        {pattern: /^[a-zA-Z0-9_]+@[a-z0-9]+\.[a-z0-9]+$/, message: '电子邮箱格式错误', trigger: 'blur'}
+                        {pattern: /^[a-zA-Z0-9_]+@[a-z0-9]+\.[a-z0-9]+$/, message: '电子邮箱格式错误', trigger: 'blur'},
+                        {validator: this.validateEmail, trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: '密码为必填项', trigger: 'blur'},
@@ -59,11 +57,10 @@
                 }
 
                 let that = this;
-                Http.get('validate/user?email=' + value).then(() => {
+                Http.get('validate/email?email=' + value).then(() => {
                     callback();
                 }).catch(respMsg => {
-                    callback(respMsg);
-                    that.error(respMsg, true);
+                    callback(new Error(respMsg));
                 })
             },
             show: function (user) {
