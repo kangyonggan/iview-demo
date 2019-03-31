@@ -27,7 +27,7 @@ class HttpRequest {
             config.headers[Util.tokenKey] = Util.token();
             // 在发送请求之前做些什么
             if (config.data && config.type !== 'upload') {
-                config.data = qs.stringify(config.data);
+                config.data = qs.stringify(config.data, {indices: false});
             }
 
             return config;

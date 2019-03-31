@@ -8,30 +8,34 @@
             <Row>
                 <Button type="info" icon="ios-search" @click="$refs.table.refresh()">查询</Button>
                 <Button type="warning" icon="ios-refresh-empty" @click="$refs.queryForm.resetFields()">清除</Button>
-                <Button type="primary" icon="plus" @click="$refs.formModal.show()">新增</Button>
-                <Button type="primary" icon="ios-eye-outline" @click="editPassword">修改密码</Button>
+                <Button type="primary" icon="plus" @click="$refs.createModal.show()">新增</Button>
                 <Button type="error" icon="ios-trash-outline" @click="remove">物理删除</Button>
+                <Button type="primary" icon="ios-eye-outline" @click="editPassword">修改密码</Button>
             </Row>
         </Form>
 
         <!--表格-->
         <AppTable ref="table" url="system/user" :columns="columns" :form="$refs.queryForm" @dblclick="dblclick"/>
 
-        <!--新增/编辑用户的界面-->
-        <FormModal ref="formModal" @success="$refs.table.refresh()"/>
+        <!--新增界面-->
+        <CreateModal ref="createModal" @success="$refs.table.refresh()"/>
 
-        <!--修改密码的界面-->
+        <!--编辑界面-->
+        <EditModal ref="editModal" @success="$refs.table.refresh()"/>
+
+        <!--修改密码界面-->
         <PasswordModal ref="passwordModal"/>
     </div>
 </template>
 
 <script>
-    import FormModal from './form-modal.vue';
+    import CreateModal from './create-modal.vue';
     import PasswordModal from './password-modal.vue';
+    import EditModal from './edit-modal.vue';
     import Http from '../../../libs/http';
 
     export default {
-        components: {FormModal, PasswordModal},
+        components: {CreateModal, PasswordModal, EditModal},
         data() {
             return {
                 /**
@@ -85,7 +89,7 @@
              * @param row
              */
             dblclick: function (row) {
-                this.$refs.formModal.show({userId: row.userId, email: row.email});
+                this.$refs.editModal.show({userId: row.userId, email: row.email});
             },
             /**
              * 修改密码
@@ -106,7 +110,7 @@
                 if (!row.userId) {
                     this.warning('请选择一行');
                 } else {
-                    let that = this;
+                    const that = this;
                     that.$Modal.confirm({
                         title: '物理删除',
                         content: '确认删除所选记录？',

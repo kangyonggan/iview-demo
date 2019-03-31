@@ -10,11 +10,6 @@
 
 <script>
     export default {
-        props: {
-            success: {
-                type: Function
-            }
-        },
         data() {
             return {
                 /**

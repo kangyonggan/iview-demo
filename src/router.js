@@ -18,7 +18,7 @@ const routers = [{
         }
     ]
 }, {
-    path: 'login',
+    path: '/login',
     name: 'login',
     meta: {
         title: '用户登录'

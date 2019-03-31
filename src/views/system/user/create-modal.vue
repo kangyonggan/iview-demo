@@ -1,11 +1,8 @@
 <template>
     <!--新增/编辑用户-->
-    <AppModal ref="modal" :action="'system/user/' + (user.userId ? user.userId : '')"
-              :method="user.userId ? 'put' : 'post'"
-              :title="user.userId ? '编辑用户' : '新增用户'" :model="user" :rules="rules" @success="handleSuccess">
-        <AppInput :model="user" prop="userId" label="用户ID" readonly :clearable="false" :v_if="!!user.userId"/>
+    <AppModal ref="modal" action="system/user/" method="post" title="新增用户" :model="user" :rules="rules" @success="handleSuccess">
         <AppInput :model="user" prop="email" label="电子邮箱" :clearable="!user.userId"/>
-        <AppInput :model="user" prop="password" label="密码" clearable :v_if="!user.userId" type="password"/>
+        <AppInput :model="user" prop="password" label="密码" clearable type="password"/>
     </AppModal>
 </template>
 
@@ -24,10 +21,6 @@
                  * 用户信息
                  */
                 user: {},
-                /**
-                 * 老的电子邮箱
-                 */
-                oldEmail: '',
                 /**
                  * 表单的校验
                  */
@@ -52,7 +45,7 @@
              * 校验用户名是否存在
              */
             validateEmail: function (rule, value, callback) {
-                if (value === this.oldEmail) {
+                if (!value) {
                     callback();
                     return;
                 }
