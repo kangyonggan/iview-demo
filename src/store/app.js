@@ -30,10 +30,13 @@ export default {
         },
         setTagNavList(state, list) {
             if (list) {
-                state.tagNavList = [...list];
-                Util.setTagNavListInLocalstorage([...list]);
+                state.tagNavList = list;
+                Util.setTagNavListInLocalstorage(state.user.userId, state.tagNavList);
             } else {
-                state.tagNavList = Util.getTagNavListFromLocalstorage();
+                list = Util.getTagNavListFromLocalstorage(state.user.userId);
+                if (list.length > 0) {
+                    state.tagNavList = list;
+                }
             }
         }
     },
@@ -42,6 +45,7 @@ export default {
         login({commit}, user) {
             return new Promise((resolve) => {
                 Http.post('login', user).then(data => {
+                    commit('setLoginData', {user: {}, menus: []});
                     store.dispatch('ready').then(data => {
                         resolve(data);
                     });

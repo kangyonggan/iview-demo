@@ -183,15 +183,15 @@ util.getBreadCrumbList = function (routeMetched) {
 /**
  * @description 本地存储和获取标签导航列表
  */
-util.setTagNavListInLocalstorage = function (list) {
-    localStorage.tagNaveList = JSON.stringify(list);
+util.setTagNavListInLocalstorage = function (userId, list) {
+    Cookies.set('tagNaveList_' + userId, list);
 };
 
 /**
  * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
  */
-util.getTagNavListFromLocalstorage = function () {
-    const list = localStorage.tagNaveList;
+util.getTagNavListFromLocalstorage = function (userId) {
+    const list = Cookies.get('tagNaveList_' + userId);
     return list ? JSON.parse(list) : [];
 };
 
