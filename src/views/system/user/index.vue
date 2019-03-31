@@ -72,6 +72,11 @@
             }
         },
         methods: {
+            /**
+             * 双击编辑
+             *
+             * @param row
+             */
             dblclick: function (row) {
                 this.$refs.formModal.show({userId: row.userId, email: row.email});
             }
