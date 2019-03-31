@@ -1,10 +1,11 @@
 <template>
     <!--新增/编辑用户-->
-    <AppModal ref="modal" :action="'system/user/' + (user.userId ? user.userId : '')" :method="user.userId ? 'put' : 'post'"
+    <AppModal ref="modal" :action="'system/user/' + (user.userId ? user.userId : '')"
+              :method="user.userId ? 'put' : 'post'"
               :title="user.userId ? '编辑用户' : '新增用户'" :model="user" :rules="rules" @success="handleSuccess">
-        <AppInput :v_if="!!user.userId" :model="user" prop="userId" label="用户ID" readonly :clearable="false"/>
-        <AppInput :model="user" prop="email" label="电子邮箱" placeholder="请输入电子邮箱" :clearable="!user.userId"/>
-        <AppInput :v_if="!user.userId" type="password" :model="user" prop="password" label="密码" placeholder="请输入密码" clearable/>
+        <AppInput :model="user" prop="userId" label="用户ID" readonly :clearable="false" :v_if="!!user.userId"/>
+        <AppInput :model="user" prop="email" label="电子邮箱" :clearable="!user.userId"/>
+        <AppInput :model="user" prop="password" label="密码" clearable :v_if="!user.userId" type="password"/>
     </AppModal>
 </template>
 
@@ -39,7 +40,7 @@
                     ],
                     password: [
                         {required: true, message: '密码为必填项', trigger: 'blur'},
-                        {min: 8, message: '密码最少为6位', trigger: 'blur'},
+                        {min: 8, message: '密码最少为8位', trigger: 'blur'},
                         {max: 20, message: '密码最多为20位', trigger: 'blur'},
                         {pattern: /^[a-zA-Z0-9_]+$/, message: '密码格式错误', trigger: 'blur'}
                     ]

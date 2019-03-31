@@ -1,6 +1,6 @@
 <template>
     <FormItem v-if="v_if" :prop="prop" :label="label">
-        <Input :type="type" v-model="model[prop]" :placeholder="placeholder" :clearable="clearable" :readonly="readonly"/>
+        <Input :type="type" v-model="model[prop]" :placeholder="placeholder ? placeholder : '请输入' + label" :clearable="clearable" :readonly="readonly"/>
     </FormItem>
 </template>
 

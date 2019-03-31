@@ -44,7 +44,7 @@
                     ],
                     password: [
                         {required: true, message: '密码为必填项', trigger: 'blur'},
-                        {min: 8, message: '密码最少为6位', trigger: 'blur'},
+                        {min: 8, message: '密码最少为8位', trigger: 'blur'},
                         {max: 20, message: '密码最多为20位', trigger: 'blur'},
                         {pattern: /^[a-zA-Z0-9_]+$/, message: '密码格式错误', trigger: 'blur'}
                     ]
