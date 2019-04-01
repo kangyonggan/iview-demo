@@ -14,10 +14,8 @@
 
 <script>
     import Http from '../../../libs/http';
-    import Input from '../../../../dist/vendors';
 
     export default {
-        components: {Input},
         data() {
             return {
                 /**

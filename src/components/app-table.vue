@@ -108,9 +108,9 @@
 
                     this.loading = false;
                     this.pageInfo = data.data.pageInfo;
-                }).catch(respMsg => {
+                }).catch(data => {
                     this.loading = false;
-                    this.error(respMsg);
+                    this.error(data.respMsg);
                 });
             },
             /**
