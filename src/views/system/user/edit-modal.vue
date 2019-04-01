@@ -14,8 +14,10 @@
 
 <script>
     import Http from '../../../libs/http';
+    import Input from '../../../../dist/vendors';
 
     export default {
+        components: {Input},
         data() {
             return {
                 /**
@@ -57,7 +59,6 @@
                     return;
                 }
 
-                let that = this;
                 Http.get('validate/email?email=' + value).then(() => {
                     callback();
                 }).catch(respMsg => {
@@ -71,6 +72,7 @@
                     that.oldEmail = user.email;
                     that.allRoles = that.filterItems(data.data.allRoles);
                     that.userRoles = that.filterKeys(data.data.userRoles);
+                    that.user.roleIds = that.userRoles;
                     that.$refs.modal.show();
                 }).catch(respMsg => {
                     that.error(respMsg);
@@ -94,7 +96,7 @@
             },
             handleChange: function (newTargetKeys, direction, moveKeys) {
                 this.userRoles = newTargetKeys;
-                this.$refs.modal.set('roleIds', newTargetKeys);
+                this.user.roleIds = newTargetKeys;
             },
             handleSuccess(event) {
                 this.$emit('success', event);

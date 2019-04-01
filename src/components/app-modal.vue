@@ -67,9 +67,6 @@
             stop: function () {
                 this.isLoading = false;
             },
-            set: function (key, value) {
-                this.model[key] = value;
-            },
             handleSubmit: function (e, form) {
                 if (this.submit) {
                     this.submit(e, form);
