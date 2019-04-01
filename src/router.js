@@ -52,6 +52,14 @@ const routers = [{
             component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
         }
     ]
+}, {
+    path: '/403',
+    name: ' 403',
+    component: (resolve) => require(['./views/error/403.vue'], resolve)
+}, {
+    path: '/*',
+    name: '404',
+    component: (resolve) => require(['./views/error/404.vue'], resolve)
 }];
 
 export default routers;

@@ -34,7 +34,7 @@
     export default {
         data() {
             return {
-                user: {},
+                user: {email: 'admin@kangyonggan.com', password: '11111111'},
                 loading: false,
                 rules: {
                     email: [
