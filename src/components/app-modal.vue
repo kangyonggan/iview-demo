@@ -79,10 +79,10 @@
                             this.success(data.respMsg);
                             this.hide();
                             this.$emit('success', data);
-                        }).catch(data => {
+                        }).catch(respMsg => {
                             this.stop();
-                            this.$emit('failure', data.respMsg);
-                            this.error(data.respMsg);
+                            this.$emit('failure', respMsg);
+                            this.error(respMsg);
                         })
                     }
                 })

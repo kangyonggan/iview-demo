@@ -2,7 +2,7 @@
     <!--编辑用户-->
     <AppModal ref="modal" :action="'system/user/' + user.userId" method="put" title="编辑用户" :model="user" :rules="rules" @success="handleSuccess">
         <AppInput :model="user" prop="userId" label="用户ID" readonly :clearable="false"/>
-        <AppInput :model="user" prop="email" label="电子邮箱" :clearable="true"/>
+        <AppInput :model="user" prop="email" label="电子邮箱" :clearable="true" type="email"/>
         <FormItem label="角色">
         </FormItem>
         <Transfer

@@ -5,7 +5,7 @@
                 <div class="form-con">
                     <Form ref="loginForm" :model="user" :rules="rules">
                         <FormItem prop="email">
-                            <Input v-model="user.email" placeholder="请输入电子邮箱">
+                            <Input type="email" v-model="user.email" placeholder="请输入电子邮箱">
                                 <span slot="prepend">
                                   <Icon :size="16" type="person"></Icon>
                                 </span>
