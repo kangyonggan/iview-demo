@@ -4,6 +4,7 @@
         <AppInput :model="role" prop="roleId" label="角色ID" readonly :clearable="false"/>
         <AppInput :model="role" prop="roleCode" label="角色代码" :clearable="true"/>
         <AppInput :model="role" prop="roleName" label="角色名称" :clearable="true"/>
+        <AppTree ref="tree" showCheckbox @checkChange="checkChange"/>
     </AppModal>
 </template>
 
@@ -21,6 +22,10 @@
                  * 老的就是代码
                  */
                 oldRoleCode: '',
+                /**
+                 * 全部菜单
+                 */
+                allMenus: [],
                 /**
                  * 表单的校验
                  */
@@ -54,12 +59,30 @@
                 });
             },
             show: function (role) {
-                this.role = role;
-                this.oldRoleCode = role.roleCode;
-                this.$refs.modal.show();
+                const that = this;
+                Http.get('system/role/' + role.roleId + '/menu').then(data => {
+                    that.role = role;
+                    that.oldRoleCode = role.roleCode;
+                    that.allMenus = that.filterMenus(data.data);
+                    that.role.menuIds = data.data.roleMenus;
+                    that.$refs.tree.init(that.allMenus);
+                    that.$refs.modal.show();
+                }).catch(respMsg => {
+                    that.error(respMsg);
+                });
+            },
+            filterMenus: function (data) {
+                const result = [];
+                for (const i in data.allMenus) {
+                    result.push(this.$refs.tree.toMenuItem(data.allMenus[i], data.roleMenus, 'menuId', 'menuName', 'icon', 'children'));
+                }
+                return result;
             },
             handleSuccess(event) {
                 this.$emit('success', event);
+            },
+            checkChange: function (selected) {
+                this.role.menuIds = selected;
             }
         }
     };

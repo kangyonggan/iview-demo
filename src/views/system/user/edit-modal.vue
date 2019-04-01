@@ -87,7 +87,7 @@
             filterKeys: function (items) {
                 const data = [];
                 for (const i in items) {
-                    data[i] = items[i].roleId + '';
+                    data[i] = items[i] + '';
                 }
 
                 return data;
