@@ -1,6 +1,9 @@
 <template>
     <div class="bg-white">
         <Tabs type="card">
+            <TabPane label="我的头像">
+                <UploadAvatar/>
+            </TabPane>
             <TabPane label="基础信息">
                 <EditProfile/>
             </TabPane>
@@ -12,10 +15,11 @@
 </template>
 
 <script>
+    import UploadAvatar from './upload-avatar';
     import EditProfile from './edit-profile';
     import EditPassword from './edit-password';
 
     export default {
-        components: {EditProfile, EditPassword}
+        components: {UploadAvatar, EditProfile, EditPassword}
     };
 </script>
