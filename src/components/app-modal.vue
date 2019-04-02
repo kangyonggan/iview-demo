@@ -39,10 +39,6 @@
             rules: {
                 required: false,
                 type: Object
-            },
-            submit: {
-                required: false,
-                type: Function
             }
         },
         data() {
@@ -68,10 +64,6 @@
                 this.isLoading = false;
             },
             handleSubmit: function (e, form) {
-                if (this.submit) {
-                    this.submit(e, form);
-                    return;
-                }
                 form.validate((valid) => {
                     if (valid) {
                         this.loading();
@@ -88,6 +80,7 @@
                 })
             },
             cancel: function () {
+                this.$refs.form.resetFields();
                 this.hide();
             }
         }

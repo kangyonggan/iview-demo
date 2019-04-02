@@ -1,11 +1,11 @@
 <template>
     <AppModal ref="modal" :action="'system/dict/' + (dict.dictId ? dict.dictId : '')" :method="dict.dictId ? 'put' : 'post'" :title="dict.dictId ? '编辑' : '新增' + '字典'" :model="dict" :rules="rules" @success="handleSuccess">
-        <AppInput :v_if="!!dict.dictId" :model="dict" prop="dictId" label="字典ID" readonly :clearable="false"/>
-        <AppSelect :model="dict" prop="dictType" label='字典类型' :items="dictTypes" clearable/>
-        <AppInput :model="dict" prop="dictCode" label="字典代码" clearable/>
-        <AppInput :model="dict" prop="value" label="值" clearable/>
-        <AppInput :model="dict" prop="remark" label="备注" clearable/>
-        <AppInput :model="dict" prop="sort" label="排序" clearable/>
+        <AppInput :v-if="!!dict.dictId" :model="dict" prop="dictId" label="字典ID" readonly :clearable="false"/>
+        <AppSelect :model="dict" prop="dictType" label='字典类型' enumKey="DictType"/>
+        <AppInput :model="dict" prop="dictCode" label="字典代码"/>
+        <AppInput :model="dict" prop="value" label="值"/>
+        <AppInput :model="dict" prop="remark" label="备注"/>
+        <AppInput :model="dict" prop="sort" label="排序"/>
     </AppModal>
 </template>
 
@@ -16,10 +16,6 @@
         props: {
             success: {
                 type: Function
-            },
-            dictTypes: {
-                type: Array,
-                required: true
             }
         },
         data() {

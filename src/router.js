@@ -58,6 +58,17 @@ const routers = [{
         }
     ]
 }, {
+    path: '/user',
+    name: 'USER',
+    component: (resolve) => main(resolve),
+    children: [
+        {
+            path: 'profile',
+            name: 'USER_PROFILE',
+            component: (resolve) => require(['./views/user/profile/index.vue'], resolve)
+        }
+    ]
+}, {
     path: '/403',
     name: ' 403',
     component: (resolve) => require(['./views/error/403.vue'], resolve)

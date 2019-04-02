@@ -8,7 +8,8 @@
                 </span>
             </a>
             <DropdownMenu slot="list">
-                <DropdownItem name="logout">退出</DropdownItem>
+                <DropdownItem name="profile">个人资料</DropdownItem>
+                <DropdownItem name="logout">安全退出</DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </div>
@@ -38,6 +39,12 @@
                                     name: 'login'
                                 });
                             }
+                        });
+                        break;
+                    }
+                    case 'profile': {
+                        this.$router.push({
+                            name: 'USER_PROFILE'
                         });
                         break;
                     }

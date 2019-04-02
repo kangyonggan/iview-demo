@@ -1,7 +1,7 @@
 <template>
     <AppModal ref="modal" action="system/user/" method="post" title="新增用户" :model="user" :rules="rules" @success="handleSuccess">
-        <AppInput :model="user" prop="email" label="电子邮箱" clearable type="email"/>
-        <AppInput :model="user" prop="password" label="密码" clearable type="password"/>
+        <AppInput :model="user" prop="email" label="电子邮箱" type="email"/>
+        <AppInput :model="user" prop="password" label="密码" type="password"/>
     </AppModal>
 </template>
 

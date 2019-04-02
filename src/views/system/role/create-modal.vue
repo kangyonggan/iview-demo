@@ -1,7 +1,7 @@
 <template>
     <AppModal ref="modal" action="system/role/" method="post" title="新增角色" :model="role" :rules="rules" @success="handleSuccess">
-        <AppInput :model="role" prop="roleCode" label="角色代码" clearable/>
-        <AppInput :model="role" prop="roleName" label="角色名称" clearable/>
+        <AppInput :model="role" prop="roleCode" label="角色代码"/>
+        <AppInput :model="role" prop="roleName" label="角色名称"/>
     </AppModal>
 </template>
 

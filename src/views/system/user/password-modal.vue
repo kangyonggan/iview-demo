@@ -4,7 +4,7 @@
               :rules="rules">
         <AppInput :model="user" prop="userId" label="用户ID" readonly :clearable="false"/>
         <AppInput :model="user" prop="email" label="电子邮箱" readonly :clearable="false"/>
-        <AppInput :model="user" prop="password" label="新密码" clearable type="password"/>
+        <AppInput :model="user" prop="password" label="新密码" type="password"/>
     </AppModal>
 </template>
 

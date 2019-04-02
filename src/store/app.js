@@ -74,6 +74,22 @@ export default {
 
             return {respCo: '0000'};
         },
+        // 重新加载数据
+        reload({commit}) {
+            return new Promise((resolve) => {
+                Http.get('login/data').then(data => {
+                    commit('setLoginData', data.data);
+                    resolve({respCo: '0000'});
+                }).catch(respMsg => {
+                    Util.removeToken();
+                    commit('setLoginData', {
+                        user: {},
+                        menus: []
+                    });
+                    resolve({respCo: '9999', respMsg: respMsg});
+                });
+            });
+        },
         // 退出
         logout() {
             return new Promise((resolve) => {

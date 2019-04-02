@@ -2,11 +2,11 @@
     <AppModal ref="modal" :action="'system/menu/' + (menu.menuId ? menu.menuId : '')" :method="menu.menuId ? 'put' : 'post'"
               :title="(menu.menuId ? '编辑' : '新增') + '菜单'" :model="menu" :rules="rules"
               @success="handleSuccess">
-        <AppInput :v_if="!menu.menuId" :model="menu" prop="parentName" label="父菜单" readonly :clearable="false"/>
-        <AppInput :model="menu" prop="menuCode" label="菜单代码" clearable/>
-        <AppInput :model="menu" prop="menuName" label="菜单名称" clearable/>
-        <AppInput :model="menu" prop="icon" label="图标" clearable/>
-        <AppInput :model="menu" prop="sort" label="排序" clearable/>
+        <AppInput :v-if="!menu.menuId" :model="menu" prop="parentName" label="父菜单" readonly :clearable="false"/>
+        <AppInput :model="menu" prop="menuCode" label="菜单代码"/>
+        <AppInput :model="menu" prop="menuName" label="菜单名称"/>
+        <AppInput :model="menu" prop="icon" label="图标"/>
+        <AppInput :model="menu" prop="sort" label="排序"/>
     </AppModal>
 </template>
 

@@ -5,14 +5,14 @@
                 <div class="form-con">
                     <Form ref="loginForm" :model="user" :rules="rules">
                         <FormItem prop="email">
-                            <Input type="email" v-model="user.email" placeholder="请输入电子邮箱">
+                            <Input type="email" v-model="user.email" placeholder="请输入电子邮箱" clearable>
                                 <span slot="prepend">
                                   <Icon :size="16" type="person"></Icon>
                                 </span>
                             </Input>
                         </FormItem>
                         <FormItem prop="password">
-                            <Input type="password" v-model="user.password" placeholder="请输入密码">
+                            <Input type="password" v-model="user.password" placeholder="请输入密码" clearable>
                                 <span slot="prepend">
                                   <Icon :size="14" type="locked"></Icon>
                                 </span>

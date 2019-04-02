@@ -18,7 +18,7 @@
         <AppTable ref="table" url="system/dict" :columns="columns" :form="$refs.queryForm" @dblclick="dblclick"/>
 
         <!--新增/编辑字典的界面-->
-        <FormModal ref="formModal" @success="$refs.table.refresh()" :dictTypes="dictTypes"/>
+        <FormModal ref="formModal" @success="$refs.table.refresh()"/>
     </div>
 </template>
 
@@ -102,11 +102,10 @@
             };
         },
         mounted() {
-            let that = this;
             Http.get('enum/DictType/list').then(data => {
                 this.dictTypes = data.data.enumList;
             }).catch(respMsg => {
-                that.error(respMsg);
+                this.error(respMsg);
             });
         },
         methods: {

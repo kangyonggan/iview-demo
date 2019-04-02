@@ -2,8 +2,8 @@
     <AppModal ref="modal" :action="'system/role/' + role.roleId" method="put" title="编辑角色" :model="role" :rules="rules"
               @success="handleSuccess">
         <AppInput :model="role" prop="roleId" label="角色ID" readonly :clearable="false"/>
-        <AppInput :model="role" prop="roleCode" label="角色代码" :clearable="true"/>
-        <AppInput :model="role" prop="roleName" label="角色名称" :clearable="true"/>
+        <AppInput :model="role" prop="roleCode" label="角色代码"/>
+        <AppInput :model="role" prop="roleName" label="角色名称"/>
         <AppTree ref="tree" showCheckbox @checkChange="checkChange"/>
     </AppModal>
 </template>
