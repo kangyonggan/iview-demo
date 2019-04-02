@@ -6,6 +6,7 @@ Vue.prototype.error = error;
 Vue.prototype.success = success;
 Vue.prototype.warning = warning;
 Vue.prototype.status = status;
+Vue.prototype.convertEnum = convertEnum;
 Vue.prototype.date = date;
 Vue.prototype.datetime = datetime;
 
@@ -120,6 +121,24 @@ function status(h, params, url, table) {
             }
         }, '未删除')
     ])
+}
+
+/**
+ * 枚举翻译
+ *
+ * @param h
+ * @param code
+ * @param list
+ */
+function convertEnum(h, code, list) {
+    var name = code;
+    for (const i in list) {
+        if (code === list[i].code) {
+            name = list[i].name;
+            break;
+        }
+    }
+    return h('span', name);
 }
 
 /**

@@ -18,7 +18,7 @@
         <AppTable ref="table" url="system/dict" :columns="columns" :form="$refs.queryForm" @dblclick="dblclick"/>
 
         <!--新增/编辑字典的界面-->
-        <FormModal ref="formModal" @success="$refs.table.refresh()"/>
+        <FormModal ref="formModal" @success="$refs.table.refresh()" :dictTypes="dictTypes"/>
     </div>
 </template>
 
@@ -35,6 +35,10 @@
                  */
                 dict: {},
                 /**
+                 * 证件类型
+                 */
+                dictTypes: [],
+                /**
                  * 表格的列
                  */
                 columns: [
@@ -46,7 +50,10 @@
                     {
                         title: '字典类型',
                         key: 'dictType',
-                        sortable: true
+                        sortable: true,
+                        render: (h, params) => {
+                            return this.convertEnum(h, params.row.dictType, this.dictTypes);
+                        }
                     },
                     {
                         title: '字典代码',
@@ -73,7 +80,7 @@
                         key: 'isDeleted',
                         sortable: true,
                         render: (h, params) => {
-                            return this.status(h, params, 'system/dict/' + params.row.dictId, this.$refs.table)
+                            return this.status(h, params, 'system/dict/' + params.row.dictId, this.$refs.table);
                         }
                     },
                     {
@@ -92,7 +99,15 @@
                             return this.datetime(h, params.row.updatedTime);
                         }
                     }]
-            }
+            };
+        },
+        mounted() {
+            let that = this;
+            Http.get('enum/DictType/list').then(data => {
+                this.dictTypes = data.data.enumList;
+            }).catch(respMsg => {
+                that.error(respMsg);
+            });
         },
         methods: {
             /**
@@ -133,9 +148,9 @@
                             });
                             that.$Modal.remove();
                         }
-                    })
+                    });
                 }
             }
         }
-    }
+    };
 </script>
