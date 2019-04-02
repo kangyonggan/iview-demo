@@ -10,13 +10,9 @@
 
         <div class="inner-content">
             <Upload
-                :format="['jpg','jpeg','png', 'gif']"
-                :max-size="2048"
-                :on-format-error="handleFormatError"
-                :on-exceeded-size="handleMaxSize"
+                :before-upload="handleBeforeUpload"
                 type="drag"
-                action="/user/profile/uploadAvatar"
-                :headers="headers"
+                action=""
                 style="margin: 20px;">
                 <div style="padding: 50px 0;">
                     <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -28,7 +24,9 @@
 </template>
 
 <script>
-    import Util from '@/libs/util';
+    import Http from '@/libs/http';
+    import Config from '@/config/config';
+    import {store} from '@/main';
 
     export default {
         data() {
@@ -38,34 +36,76 @@
             };
         },
         methods: {
-            handleFormatError() {
-                this.warning('文件类型错误，请选择jpg、jpeg、png或者gif格式的图片');
-            },
-            handleMaxSize() {
-                this.warning('文件太大, 请不要超过2M');
-            }
-        },
-        computed: {
-            headers: function () {
-                const headers = {};
-                headers[Util.tokenKey] = Util.token();
+            checkFile: function (file) {
+                if (!file) {
+                    this.warning('请选择文件');
+                    return false;
+                }
 
-                return headers;
+                const index = file.name.lastIndexOf(".");
+                const extErr = '文件类型错误，请选择jpg、jpeg、png或者gif格式的图片';
+                if (index < 0) {
+                    this.warning(extErr);
+                    return false;
+                }
+                const ext = file.name.substring(file.name.lastIndexOf(".") + 1).toLocaleLowerCase();
+                const allowExts = 'jpg,jpeg,png,gif';
+                if (allowExts.indexOf(ext) < 0) {
+                    this.warning(extErr);
+                    return false;
+                }
+
+                if (file.size > 1024 * 1024 * 2) {
+                    this.warning('文件太大, 请不要超过2M');
+                    return false;
+                }
+
+                return true;
+            },
+            handleBeforeUpload: function (file) {
+                if (!this.checkFile(file)) {
+                    return false;
+                }
+                let formData = new FormData();
+                formData.append('file', file);
+                Http.postUpload(Config.uploadUrl, formData).then(data => {
+                    this.success(data.respMsg);
+                    Http.put('/user/profile', {avatar: data.data.fileName}).then(data => {
+                        if (data.respCo === '0000') {
+                            store.dispatch('reload').then(data => {
+                                if (data.respCo === '0000') {
+                                    this.reload();
+                                } else {
+                                    this.error(data.respMsg);
+                                }
+                            });
+                        } else {
+                            this.error(data.respMsg);
+                        }
+                    });
+                }).catch(respMsg => {
+                    this.error(respMsg);
+                });
+                return false;
+            },
+            reload() {
+                const user = this.$store.state.StoreApp.user;
+                this.user = {
+                    userId: user.userId,
+                    email: user.email,
+                    avatar: user.avatar
+                };
             }
         },
         mounted() {
-            const user = this.$store.state.StoreApp.user;
-            this.user = {
-                userId: user.userId,
-                email: user.email,
-                avatar: user.avatar || require('../../../assets/images/logo.jpg')
-            };
+            this.reload();
         }
     };
 </script>
 
 <style scoped lang="less">
     .avatar {
+        width: 230px;
         cursor: zoom-in;
         padding: 6px;
         border: 1px solid #dfd9ce;

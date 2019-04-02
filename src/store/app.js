@@ -2,6 +2,7 @@ import Http from '@/libs/http';
 import Util from '@/libs/util';
 import Routers from '@/router';
 import {store} from '@/main';
+import Config from '@/config/config';
 
 export default {
     state: {
@@ -23,6 +24,11 @@ export default {
     mutations: {
         setLoginData(state, data) {
             state.user = data.user;
+            if (!data.user.avatar) {
+                state.user.avatar = require('@/assets/images/avatar.jpg');
+            } else {
+                state.user.avatar = Config.baseUrl + data.user.avatar;
+            }
             state.menus = Util.getMenuByRouter(Routers, data.menus);
         },
         setBreadCrumb(state, routeMetched) {

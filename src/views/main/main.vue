@@ -59,7 +59,7 @@
         },
         computed: {
             avatar() {
-                return require('../../assets/images/logo.jpg');
+                return this.$store.state.StoreApp.user.avatar;
             },
             menuList() {
                 return this.$store.getters.menus;
