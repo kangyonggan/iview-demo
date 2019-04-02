@@ -28,8 +28,8 @@
 </template>
 
 <script>
-    import Util from '../../../libs/util';
-    import Http from '../../../libs/http';
+    import Util from '@/libs/util';
+    import Http from '@/libs/http';
 
     export default {
         name: 'Unlock',

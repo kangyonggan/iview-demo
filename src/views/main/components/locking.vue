@@ -8,7 +8,7 @@
 
 <script>
     import unlock from './unlock.vue'
-    import Util from '../../../libs/util'
+    import Util from '@/libs/util'
 
     export default {
         components: {

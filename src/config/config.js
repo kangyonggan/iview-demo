@@ -1,4 +1,4 @@
-import Env from './env';
+import Env from '@/config/env';
 
 let config = {
     env: Env,

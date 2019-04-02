@@ -24,7 +24,7 @@
 
 <script>
     import FormModal from './form-modal.vue';
-    import Http from '../../../libs/http';
+    import Http from '@/libs/http';
 
     export default {
         components: {FormModal},

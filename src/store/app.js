@@ -1,7 +1,7 @@
-import Http from '../libs/http';
-import Util from '../libs/util';
-import Routers from '../router';
-import {store} from '../main';
+import Http from '@/libs/http';
+import Util from '@/libs/util';
+import Routers from '@/router';
+import {store} from '@/main';
 
 export default {
     state: {

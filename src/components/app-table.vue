@@ -14,7 +14,7 @@
 
 <script>
     import Vue from 'vue';
-    import Http from '../libs/http';
+    import Http from '@/libs/http';
 
     const AppTable = {
         props: {

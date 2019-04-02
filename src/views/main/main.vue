@@ -47,7 +47,7 @@
     import fullscreen from './components/fullscreen'
     import user from './components/user';
     import { mapMutations } from 'vuex'
-    import Util from '../../libs/util';
+    import Util from '@/libs/util';
 
     export default {
         components: {sideMenu, headerBar, tagsNav, lockScreen, fullscreen, user},

@@ -12,7 +12,6 @@
 
 <script>
     import Http from '../../../libs/http';
-    import {store} from '../../../main';
 
     export default {
         data() {
@@ -51,12 +50,8 @@
                     callback(new Error(respMsg));
                 });
             },
-            handleSuccess() {
-                store.dispatch('reload').then(data => {
-                    if (data.respCo !== '0000') {
-                        this.error(data.respMsg);
-                    }
-                });
+            handleSuccess(data) {
+                this.$store.state.StoreApp.user = data.data.user;
             }
         }
     };

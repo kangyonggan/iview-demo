@@ -1,4 +1,4 @@
-import Axios from './axios';
+import Axios from '@/libs/axios';
 
 const axios = new Axios();
 const http = {};

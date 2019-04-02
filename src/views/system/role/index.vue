@@ -28,7 +28,7 @@
 <script>
     import CreateModal from './create-modal.vue';
     import EditModal from './edit-modal.vue';
-    import Http from '../../../libs/http';
+    import Http from '@/libs/http';
 
     export default {
         components: {CreateModal, EditModal},

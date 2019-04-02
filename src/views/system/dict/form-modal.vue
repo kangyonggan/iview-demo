@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import Http from '../../../libs/http';
+    import Http from '@/libs/http';
 
     export default {
         props: {

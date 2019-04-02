@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import Config from '../config/config';
+import Config from '@/config/config';
 import qs from 'qs';
-import Util from '../libs/util';
+import Util from '@/libs/util';
 
 class HttpRequest {
     constructor() {

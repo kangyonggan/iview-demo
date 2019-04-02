@@ -32,7 +32,7 @@
     import CreateModal from './create-modal.vue';
     import PasswordModal from './password-modal.vue';
     import EditModal from './edit-modal.vue';
-    import Http from '../../../libs/http';
+    import Http from '@/libs/http';
 
     export default {
         components: {CreateModal, PasswordModal, EditModal},

@@ -14,9 +14,9 @@
                 :max-size="2048"
                 :on-format-error="handleFormatError"
                 :on-exceeded-size="handleMaxSize"
-                :before-upload="handleBeforeUpload"
                 type="drag"
-                action="user/profile/avatar"
+                action="/user/profile/uploadAvatar"
+                :headers="headers"
                 style="margin: 20px;">
                 <div style="padding: 50px 0;">
                     <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -28,8 +28,7 @@
 </template>
 
 <script>
-    import Http from '../../../libs/http';
-    import {store} from '../../../main';
+    import Util from '@/libs/util';
 
     export default {
         data() {
@@ -40,28 +39,18 @@
         },
         methods: {
             handleFormatError() {
-                console.log("asdasd");
                 this.warning('文件类型错误，请选择jpg、jpeg、png或者gif格式的图片');
             },
             handleMaxSize() {
                 this.warning('文件太大, 请不要超过2M');
-            },
-            handleBeforeUpload: function (file) {
-                let formData = new FormData();
-                formData.append('file', file);
-                Http.putUpload('user/profile/avatar', formData).then(data => {
-                    this.success(data.respMsg);
-                    this.isLoading = false;
-                    store.dispatch('reload').then(data => {
-                        if (data.respCo !== '0000') {
-                            this.error(data.respMsg);
-                        }
-                    });
-                }).catch(respCo => {
-                    this.isLoading = false;
-                    this.error(respCo);
-                });
-                return false;
+            }
+        },
+        computed: {
+            headers: function () {
+                const headers = {};
+                headers[Util.tokenKey] = Util.token();
+
+                return headers;
             }
         },
         mounted() {

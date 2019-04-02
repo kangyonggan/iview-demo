@@ -22,7 +22,7 @@
 <script>
     import sideMenuItem from './side-menu-item.vue';
     import collapsedMenu from './collapsed-menu.vue';
-    import Util from '../../../libs/util';
+    import Util from '@/libs/util';
     import mixin from './mixin';
 
     export default {
