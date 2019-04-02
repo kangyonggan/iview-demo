@@ -50,6 +50,11 @@ const routers = [{
             path: 'menu',
             name: 'SYSTEM_MENU',
             component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
+        },
+        {
+            path: 'dict',
+            name: 'SYSTEM_DICT',
+            component: (resolve) => require(['./views/system/dict/index.vue'], resolve)
         }
     ]
 }, {

@@ -40,7 +40,7 @@
                         {max: 32, message: '菜单名称最多为32位', trigger: 'blur'}
                     ],
                     icon: [
-                        {max: 128, message: '图标最多为32位', trigger: 'blur'}
+                        {max: 128, message: '图标最多为128位', trigger: 'blur'}
                     ],
                     sort: [
                         {pattern: /^[0-9]*$/, message: '必须是自然数', trigger: 'blur'},
