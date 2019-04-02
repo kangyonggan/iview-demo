@@ -30,7 +30,21 @@
                  * 表单的校验
                  */
                 rules: {
-
+                    menuCode: [
+                        {required: true, message: '菜单代码为必填项', trigger: 'blur'},
+                        {pattern: /^[A-Z_]{1,32}$/, message: '纯大写,可带下划线,不超过32位', trigger: 'blur'},
+                        {validator: this.validateMenuCode, trigger: 'blur'}
+                    ],
+                    menuName: [
+                        {required: true, message: '菜单名称为必填项', trigger: 'blur'},
+                        {max: 32, message: '菜单名称最多为32位', trigger: 'blur'}
+                    ],
+                    icon: [
+                        {max: 128, message: '图标最多为32位', trigger: 'blur'}
+                    ],
+                    sort: [
+                        {pattern: /^[0-9]*$/, message: '必须是自然数', trigger: 'blur'},
+                    ]
                 }
             }
         },
@@ -38,7 +52,7 @@
             /**
              * 校验菜单代码是否存在
              */
-            validateMenu: function (rule, value, callback) {
+            validateMenuCode: function (rule, value, callback) {
                 if (!value || this.oldMenuCode === value) {
                     callback();
                     return

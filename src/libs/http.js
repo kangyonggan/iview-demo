@@ -8,8 +8,8 @@ http.request = function (method, url, data) {
     return new Promise((resolve, reject) => {
         axios.http(method, url, data).then(data => {
             resolve(data);
-        }).catch(respMsg => {
-            reject(respMsg);
+        }).catch(data => {
+            httpReject(reject, data);
         });
     });
 };
