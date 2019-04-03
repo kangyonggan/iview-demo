@@ -36,6 +36,7 @@
                 <li>Tab多页面</li>
                 <li>多级菜单</li>
                 <li>国际化</li>
+                <li>文件上传</li>
                 <li>...</li>
             </ol>
             <div class="line"></div>
