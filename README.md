@@ -24,6 +24,6 @@
 - ...
 
 ## 中文文档
-![https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
-![https://www.iviewui.com/docs/guide/introduce](https://www.iviewui.com/docs/guide/introduce)
+[https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
+[https://www.iviewui.com/docs/guide/introduce](https://www.iviewui.com/docs/guide/introduce)
 
