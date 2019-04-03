@@ -6,6 +6,7 @@
     "scripts": {
         "init": "webpack --progress --config webpack.dev.config.js",
         "dev": "webpack-dev-server --content-base ./ --open --inline --hot --compress --history-api-fallback --config webpack.dev.config.js --port=8888",
+        "mock": "webpack-dev-server --content-base ./ --open --inline --hot --compress --history-api-fallback --config webpack.mock.config.js --port=8888",
         "build": "webpack --progress --hide-modules --config webpack.prod.config.js",
         "lint": "eslint --fix --ext .js,.vue src"
     },

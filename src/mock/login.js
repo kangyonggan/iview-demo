@@ -1,15 +1,17 @@
 export const login = req => {
+    console.log('login');
+    console.log(req);
+    const header = {};
+    header['x-auth-token'] = 'c0f408af-1767-45d4-b826-5376b7e20d43';
+    req.header = header;
     return {
-        code: 200,
-        respCo: '0000',
-        respMsg: '响应成功',
-        headers: {
-            'x-auth-token': 'xxxxxxxx'
-        }
-    }
+        'respCo': '0000',
+        'respMsg': '响应成功'
+    };
 };
 
 export const loginData = req => {
+    console.log('loginData');
     return {
         code: 200,
         respCo: '0000',
@@ -38,7 +40,7 @@ export const loginData = req => {
                 }]
             }]
         }
-    }
+    };
 };
 
 export const logout = req => {
@@ -46,5 +48,5 @@ export const logout = req => {
         code: 200,
         respCo: '0000',
         respMsg: '响应成功'
-    }
+    };
 };

@@ -2,8 +2,10 @@ import Mock from 'mockjs'
 import {login, logout, loginData} from './login'
 
 // 登录相关和获取用户信息
-Mock.mock('/login', 'POST', login);
-Mock.mock('/login/data', 'GET', loginData);
-Mock.mock('/logout', 'GET', logout);
+Mock.mock(/\/login\/data/, loginData);
+Mock.mock(/\/logout/, logout);
+Mock.mock(/\/login/, function (ops) {
+    console.log(ops);
+});
 
 export default Mock;

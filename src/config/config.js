@@ -1,6 +1,6 @@
 import Env from '@/config/env';
 
-const baseUrl = Env === 'development' ? 'http://localhost:8080' : Env === 'mock' ? '' : 'https://kangyonggan.com';
+const baseUrl = Env === 'development' ? 'http://localhost:8080' : 'https://kangyonggan.com';
 
 let config = {
     env: Env,
